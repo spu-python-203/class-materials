@@ -50,9 +50,10 @@ Python's default code editor. [IDLE](https://docs.python.org/3/library/idle.html
 - [Getting Started with Python in VS Code](https://code.visualstudio.com/docs/python/python-tutorial)
 - Great for development, enterprise grade tools!
 - Many useful extensions available, such as 
-  - [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance), 
-  - [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python), 
-  - [Markdown PDF],(https://marketplace.visualstudio.com/items?itemName=yzane.markdown-pdf), etc.
+  - [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance)
+  - [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+  - [Markdown PDF](https://marketplace.visualstudio.com/items?itemName=yzane.markdown-pdf), etc.
+  - [Live Code](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare) to interact with each other.
 
 #### Interactive Shells
 
