@@ -14,6 +14,8 @@ We will go over on IDEs, creating environments, having multiple versions, of pyt
 
 ### Multiple Python Versions
 
+We will cover why not to use system python, and why we need to have multiple versions of python in our computer.
+
 #### Why not the system python?
 
 Some operating systems have python already. In Linux or OSX, typing `python` into console will bring you to python2 REPL. 
@@ -37,15 +39,19 @@ Various text editors you can code. Some of them features great tools for coding!
 
 Python's default code editor. [IDLE](https://docs.python.org/3/library/idle.html) is Python’s Integrated Development and Learning Environment.
 
-#### JupyterHub
+#### JupyterLab
+
+JupyterLab is the next-generation web-based user interface for Project Jupyter.
 
 - [JupyterLab Documentation](https://jupyterlab.readthedocs.io/en/stable/)
 
 #### Jupyter Notebook 
 
-- [Notebook](https://jupyter-notebook.readthedocs.io/en/stable/) a representation of all content visible in the web application, including inputs and outputs of the computations, explanatory text, mathematics, images, and rich media representations of objects.
+[Notebook](https://jupyter-notebook.readthedocs.io/en/stable/) a representation of all content visible in the web application, including inputs and outputs of the computations, explanatory text, mathematics, images, and rich media representations of objects.
   
 #### VSCode
+
+Advanced integrated development environment tool that you can benefit a lot.
 
 - [Getting Started with Python in VS Code](https://code.visualstudio.com/docs/python/python-tutorial)
 - Great for development, enterprise grade tools!
@@ -57,9 +63,21 @@ Python's default code editor. [IDLE](https://docs.python.org/3/library/idle.html
 
 #### Interactive Shells
 
-- [A powerful interactive shell, iPython](https://ipython.org/)
-- [Python Shell](https://www.python.org/shell/)
+Even tough shells are not IDEs, I will explain a few terminalogies that shells introduces us.
 
+**terminal/console:** A piece of hardware to interact with a computer. Combination of computer screen and keyboard.
+
+**emulator:** A software program that simulates the terminal stated in above.
+
+**shell:** It is kind of the language that the computer understands, so that you can interact with the computer.
+
+- Any answer under this question is sophisticated enough to give a broader description of [what is the exact difference between a 'terminal', a 'shell', a 'tty' and a 'console'](https://unix.stackexchange.com/q/4126).
+
+Then we have python shells. For python shells, the main objective of the shell is to **interact with python**, rather than ineracting with the computer. There are the two shells that are very well known among python shells.
+
+- [Python shell](https://www.python.org/shell/)
+- [iPython, a powerful interactive shell](https://ipython.org/)
+  
 ### Environments
 
 <!-- TODO -->
