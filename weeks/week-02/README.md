@@ -80,7 +80,91 @@ Then we have python shells. For python shells, the main objective of the shell i
   
 ### Environments
 
-<!-- TODO -->
+Environment is a container for your application to run isolated with safely and without interrupting any other existing applications in the same machine.
+
+There are many virtual environment tools, but I will be listing some of the well known ones.
+
+- [Venv](https://docs.python.org/3/library/venv.html#module-venv), the standard virtual environments package
+- [Virtualenv](https://virtualenv.pypa.io/en/latest/), where venv is mostly developed from.
+- [Pipenv](https://pipenv.pypa.io/en/latest/), both package manager and environment maintainer using `virtualenv`.
+- [Conda](https://docs.conda.io/projects/conda/en/latest/), anaconda package manager
+- [Poetry](https://python-poetry.org/), package manager
+
+But, why actually we need an environment?
+
+Just before that, let's explore how python's install folder is organized.
+
+``` zsh
+ me@MacBook-Pro ~ tree -L 3 /Users/me/.pyenv/versions/3.7.3
+/Users/me/.pyenv/versions/3.7.3
+├── bin # all executables
+│   ├── ...
+│   ├── python -> python3.7
+│   ├── ...
+├── include 
+│   └── python3.7m
+├── lib
+│   ├── libpython3.7m.a
+│   ├── pkgconfig
+│   └── python3.7 # level where standard packages are
+│       ├── LICENSE.txt
+│       ├── __future__.py
+│       ├── ...
+│       ├── site-packages # level where 3rd party packages are
+│       ├── ...
+└── share
+    └── man
+```
+
+
+When a package installed via pip, it will go into `site-packages` folder, and the package will be importable on any place where system python is available. 
+
+For example, if I install `pandas==1.1.4` to system python, there will be a folder for pandas in `site-packages` and pandas will be importable from anywhere. Later on, If I want to install an older version of python, like `pandas==0.25.3`, the current pandas that is installed on `site-packagas` folder will become unavailable for importing and pandas package will be downgraded to `0.25.3`. Here, we observe the first problem of using system python.
+
+Another example, similar to the one above occurs when installing **a package with a dependency on pandas**. Since this package is dependent on pandas, when installing via pip, pip will *uninstall any existing version* of pandas on `site-packages` folder and install the version of pandas that is stated in this package. That is, if this package is for some reason defines the version for pandas as `0.25.3`, and you have `1.1.4`, pandas version will be `0.25.3` for system python. Not good.
+
+For the reasons given above, working on multiple projects might cause problems. Therefore, the main reason is because python doesn't have a local wrapper folder for a project. 
+
+That is, any package installed on a computer will be installed to python's `site-packages` folder, and will be available to every other project that uses python.
+
+Now that you know what it it is and why we need it, let's see how environments work.
+
+A virtual environment wraps the python into a folder so that it won't distrupt your system version. When you `activate` the environment, a shell script gets to run and temporarily changes the python pathing and environment variable to environment folder so that it gets isolated from rest of the system.
+
+Lets look into this now. 
+
+First, lets use `site` module from standard library to see the sys paths.
+
+``` zsh
+ me@MacBook-Pro ~ python -m site
+sys.path = [
+    '/Users/me',
+    '/Users/me/.pyenv/versions/3.7.3/lib/python37.zip',
+    '/Users/me/.pyenv/versions/3.7.3/lib/python3.7',
+    '/Users/me/.pyenv/versions/3.7.3/lib/python3.7/lib-dynload',
+    '/Users/me/.pyenv/versions/3.7.3/lib/python3.7/site-packages',
+]
+USER_BASE: '/Users/me/.local' (exists)
+USER_SITE: '/Users/me/.local/lib/python3.7/site-packages' (doesn't exist)
+ENABLE_USER_SITE: True
+```
+
+And below is for a new environment that I created just now.
+
+``` zsh
+ me@MacBook-Pro ~ source /Users/me/.virtualenv/NewForWeek2/bin/activate
+ (NewForWeek2) me@MacBook-Pro ~ python -m site
+sys.path = [
+    '/Users/me',
+    '/Users/me/.pyenv/versions/3.9.0/lib/python39.zip',
+    '/Users/me/.pyenv/versions/3.9.0/lib/python3.9',
+    '/Users/me/.pyenv/versions/3.9.0/lib/python3.9/lib-dynload',
+    '/Users/me/.virtualenv/NewForWeek2/lib/python3.9/site-packages', # <== notice that site package folder changed to this new directory
+]
+USER_BASE: '/Users/me/.local' (exists)
+USER_SITE: '/Users/me/.local/lib/python3.9/site-packages' (doesn't exist)
+ENABLE_USER_SITE: False
+```
 
 ### Test Driven Development (TTD)
 
