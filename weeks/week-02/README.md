@@ -4,7 +4,7 @@ We will go over on IDEs, creating environments, having multiple versions, of pyt
 
 ### Installing Python
 
-- [ ] Install python to your computer.
+Python is available to download from official websites as well as many other ways.
 
 - [From python downloads](https://www.python.org/downloads/)
 - [Pyenv](https://github.com/pyenv/pyenv)
@@ -152,19 +152,40 @@ ENABLE_USER_SITE: True
 And below is for a new environment that I created just now.
 
 ``` zsh
- me@MacBook-Pro ~ source /Users/me/.virtualenv/NewForWeek2/bin/activate
+ me@MacBook-Pro ~ source ~/.virtualenv/EnvforPathCheck/bin/activate
  (NewForWeek2) me@MacBook-Pro ~ python -m site
 sys.path = [
     '/Users/me',
-    '/Users/me/.pyenv/versions/3.9.0/lib/python39.zip',
-    '/Users/me/.pyenv/versions/3.9.0/lib/python3.9',
-    '/Users/me/.pyenv/versions/3.9.0/lib/python3.9/lib-dynload',
-    '/Users/me/.virtualenv/NewForWeek2/lib/python3.9/site-packages', # <== notice that site package folder changed to this new directory
+    '/Users/me/.pyenv/versions/3.7.3/lib/python37.zip',
+    '/Users/me/.pyenv/versions/3.7.3/lib/python3.7',
+    '/Users/me/.pyenv/versions/3.7.3/lib/python3.7/lib-dynload',
+    '/Users/me/.virtualenv/EnvforPathCheck/lib/python3.7/site-packages',
 ]
 USER_BASE: '/Users/me/.local' (exists)
-USER_SITE: '/Users/me/.local/lib/python3.9/site-packages' (doesn't exist)
+USER_SITE: '/Users/me/.local/lib/python3.7/site-packages' (doesn't exist)
 ENABLE_USER_SITE: False
 ```
+
+Let's look now to how an environment actually works.
+
+When you run python, it looks from where it gets executed. The [official documentation](https://docs.python.org/3/library/sys.html#sys.base_exec_prefix) says python uses `site.py` module to check if an environment is active or not, and then sets the path for `sys.prefix` and `sys.exec_prefix` accordingly. So, whatever directory python gets executed, the location of `site-packages` will be relative to this executable, will be as `lib/pythonX.X/site-packages/`.
+
+For my system python and the `EnvforPathCheck` environment, here are the values of the bases.
+
+| Contants               | System                                              | Environment (EnvforPathCheck)                             |
+| ---------------------- | --------------------------------------------------- | --------------------------------------------------------- |
+| sys.prefix             | ~/.pyenv/versions/3.7.3                             | ~/.virtualenv/EnvforPathCheck                             |
+| sys.exec_prefix        | ~/.pyenv/versions/3.7.3                             | ~/.virtualenv/EnvforPathCheck                             |
+| sys.base_prefix        | ~/.pyenv/versions/3.7.3                             | ~/.pyenv/versions/3.7.3                                   |
+| sys.base_exec_prefix   | ~/.pyenv/versions/3.7.3                             | ~/.pyenv/versions/3.7.3                                   |
+| sys.executable         | ~/.pyenv/versions/3.7.3/bin/python                  | ~/.virtualenv/EnvforPathCheck/bin/python                  |
+| site.getsitepackages() | ~/.pyenv/versions/3.7.3/lib/python3.7/site-packages | ~/.virtualenv/EnvforPathCheck/lib/python3.7/site-packages |
+
+
+Therefore, after activating an environment and importing a package, python will look the package in the relevant site-packages folder. With this way, python isolates the packages using virtual environments. Read more about this process from the `venv`'s [documentation](https://docs.python.org/3/library/venv.html#creating-virtual-environments).
+
+<sub> 1. `~` refers to `Users/me/`. </sub>  
+<sub> 2. My system python set to `~/.pyenv/versions/3.7.3`. </sub>
 
 ### Test Driven Development (TTD)
 
