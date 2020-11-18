@@ -2,6 +2,27 @@
 
 We will go over on IDEs, creating environments, having multiple versions, of python, test driven development, debugging python code, continous integration tools, and much much more.
 
+### Table of Contents
+- [Week 2](#week-2)
+    - [Table of Contents](#table-of-contents)
+    - [Installing Python](#installing-python)
+    - [Multiple Python Versions](#multiple-python-versions)
+      - [Why not the system python?](#why-not-the-system-python)
+      - [Why to have multiple versions?](#why-to-have-multiple-versions)
+    - [IDEs](#ides)
+      - [IDLE](#idle)
+      - [JupyterLab](#jupyterlab)
+      - [Jupyter Notebook](#jupyter-notebook)
+      - [VSCode](#vscode)
+      - [Interactive Shells](#interactive-shells)
+    - [Environments](#environments)
+    - [Test Driven Development (TTD)](#test-driven-development-ttd)
+      - [Why not to use TDD in Data Science?](#why-not-to-use-tdd-in-data-science)
+      - [When to use TDD in Data Science?](#when-to-use-tdd-in-data-science)
+    - [Debuging Python Code](#debuging-python-code)
+    - [CI](#ci)
+
+
 ### Installing Python
 
 Python is available to download from official websites as well as many other ways.
@@ -14,7 +35,36 @@ Python is available to download from official websites as well as many other way
 
 ### Multiple Python Versions
 
-We will cover why not to use system python, and why we need to have multiple versions of python in our computer.
+We will cover why not to use system python, and why we need to have multiple versions of python in our computer. One packages is to use is `pyenv`. Pyenv does a lot of things, but the main thing it does is it manages multiple installs of python and sets pathing so that you can use one of these versions globally. Some useful commands are in below.
+
+Install a python version.
+
+``` zsh
+ me@MacBook-Pro ~ pyenv install 3.7.3
+ ...
+```
+
+Set a version globally.
+
+``` zsh
+ me@MacBook-Pro ~ pyenv global 3.7.3
+ me@MacBook-Pro ~ pyenv version
+3.7.3 (set by /Users/me/.pyenv/version)
+```
+
+View list of versions on your machine.
+
+``` zsh
+ me@MacBook-Pro ~ pyenv versions
+  system
+  3.5.9
+* 3.7.3 (set by /Users/me/.pyenv/version)
+  3.8.3
+  3.8.5
+  3.9.0
+```
+
+There are many useful [commands](https://github.com/pyenv/pyenv/blob/master/COMMANDS.md) for pyenv.
 
 #### Why not the system python?
 
@@ -166,9 +216,7 @@ USER_SITE: '/Users/me/.local/lib/python3.7/site-packages' (doesn't exist)
 ENABLE_USER_SITE: False
 ```
 
-Let's look now to how an environment actually works.
-
-When you run python, it looks from where it gets executed. The [official documentation](https://docs.python.org/3/library/sys.html#sys.base_exec_prefix) says python uses `site.py` module to check if an environment is active or not, and then sets the path for `sys.prefix` and `sys.exec_prefix` accordingly. So, whatever directory python gets executed, the location of `site-packages` will be relative to this executable, will be as `lib/pythonX.X/site-packages/`.
+When python runs, it looks from **where it gets executed**. The [official documentation](https://docs.python.org/3/library/sys.html#sys.base_exec_prefix) says python uses `site.py` module to check if an environment is active or not, and then sets the path for `sys.prefix` and `sys.exec_prefix` accordingly. So, whatever directory python gets executed, the location of `site-packages` will be relative to this executable, which will be as `lib/pythonX.X/site-packages/`.
 
 For my system python and the `EnvforPathCheck` environment, here are the values of the bases.
 
@@ -205,7 +253,7 @@ Therefore, after activating an environment and importing a package, python will 
 - Simple implementation of some strait ideas
 - You may be the only one working on a project and you think it won't be used by no one else but you.
 
-### When to use TDD in Data Science?
+#### When to use TDD in Data Science?
 
 - When building data pipelines
 - Complicated project with multiple levels, clean data, etc.
@@ -237,7 +285,7 @@ You are building an ETL pipeline, where you have to make sure the custom functio
 
 ### Debuging Python Code
 
-A debugger or debugging tool is a computer program used to test and debug other programs. The main use of a debugger is to run the target program under controlled conditions that permit the programmer to track its operations in progress and monitor changes in computer resources that may indicate malfunctioning code. [Wikipedia](https://en.wikipedia.org/wiki/Debugger)
+A debugger or debugging tool is a computer program used to test and debug other programs. The main use of a debugger is to run the target program under controlled conditions that permit the programmer to track its operations in progress and monitor changes in computer resources that may indicate malfunctioning code. *from [Wikipedia](https://en.wikipedia.org/wiki/Debugger)*.
 
 - [The Python Debugger](https://docs.python.org/3/library/pdb.html)
 
@@ -245,7 +293,16 @@ A debugger or debugging tool is a computer program used to test and debug other 
 import pdb; pdb.set_trace()
 ```
 
-- [Configure and run the debugger](https://code.visualstudio.com/docs/python/debugging)
+- [IPython pdb](https://github.com/gotcha/ipdb) debugger.
+``` py
+import ipdb
+ipdb.set_trace(context=5)  # will show five lines of code
+                           # instead of the default three lines
+                           # or you can set it via IPDB_CONTEXT_SIZE env variable
+                           # or setup.cfg file
+```
+
+- Using VSCode and its debugger. [Configure and run the debugger](https://code.visualstudio.com/docs/python/debugging).
 
 ``` js
 {
@@ -257,14 +314,6 @@ import pdb; pdb.set_trace()
 }
 ```
 
-- [IPython pdb](https://github.com/gotcha/ipdb) debugger.
-``` py
-import ipdb
-ipdb.set_trace(context=5)  # will show five lines of code
-                           # instead of the default three lines
-                           # or you can set it via IPDB_CONTEXT_SIZE env variable
-                           # or setup.cfg file
-```
 ### CI
 
 <!-- TODO -->
