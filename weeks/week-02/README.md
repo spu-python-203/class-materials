@@ -19,6 +19,7 @@ We will go over on IDEs, creating environments, having multiple versions, of pyt
     - [Test Driven Development (TTD)](#test-driven-development-ttd)
       - [Why not to use TDD in Data Science?](#why-not-to-use-tdd-in-data-science)
       - [When to use TDD in Data Science?](#when-to-use-tdd-in-data-science)
+      - [Examples of TTD](#examples-of-ttd)
     - [Debuging Python Code](#debuging-python-code)
     - [CI](#ci)
 
@@ -259,6 +260,8 @@ Therefore, after activating an environment and importing a package, python will 
 - Complicated project with multiple levels, clean data, etc.
 - You work in a team that other people are also using the same code.
 
+#### Examples of TTD 
+
 **Example 1**
 
 One example from [Timo Böhm](https://medium.com/@timoboehm) in his article on [How to use Test Driven Development in a Data Science Workflow](https://towardsdatascience.com/tdd-datascience-689c98492fcc) is analysis of tweets. He divides this task into four subproblems:
@@ -316,4 +319,58 @@ ipdb.set_trace(context=5)  # will show five lines of code
 
 ### CI
 
-<!-- TODO -->
+Continous Integration is a software development practice where the code for the project is stored in a single repository where everyone pushes their contributions frequently, and the final code get tested by automated jobs where the written tests gets executed with consideration to every environment where the software is intend to be used. 
+
+[Martin Fowler defines and states](https://martinfowler.com/articles/continuousIntegration.html) that many teams find this approach to significantly reduce integration problems, and develop software rapidly. In this article, he defines the practices of continous integration as follows:
+
+- Maintain a Single Source Repository
+- Automate the Build
+- Make Your Build Self-Testing
+- Everyone Commits To the Mainline Every Day
+- Every Commit Should Build the Mainline on an Integration Machine
+- Fix Broken Builds Immediately
+- Keep the Build Fast
+- Test in a Clone of the Production Environment
+- Make it Easy for Anyone to Get the Latest Executable
+- Everyone can see what's happening
+- Automate Deployment
+
+Advantages of CI seems quite intiutive and therefore there are many tools and services out there to setup CI for any project, in any language. We will examine a few of these CI tools and services.
+
+Some python based CI tools.
+
+- [Buildbot](http://buildbot.net/)
+- [Tox automation project](https://tox.readthedocs.io/en/latest/)
+
+Online services that orchestrates CI for any project.
+
+- [GitHub Actions](https://github.com/features/actions)
+- [Travis-CI](https://travis-ci.org/)
+
+There are many others out there, but for simplicity we will keep only the mentioned ones.
+
+The common idea behind these tools and services, as said in the begining, to automate the final build of the software without the need for a human to do these operations. Usually there is a [workflow syntax](https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions) which allows to configure automation based on the project. 
+
+``` yaml
+name: learn-github-actions
+on: [push]
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - run: npm install -g bats
+      - run: bats -v
+```
+
+Once the job starts running, job's activity can be viewed under `Actions` tab.
+
+![](assets/learn-github-actions-workflow.png)
+
+Each job will show its output inside it.
+
+![](assets/overview-actions-result-updated.png)
+
+<sub>- Find out for more on [GitHub Actions](https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/introduction-to-github-actions). </sub>  
+<sub>- Building a [python project with travis CI](https://docs.travis-ci.com/user/languages/python/).</sub>
