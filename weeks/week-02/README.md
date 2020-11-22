@@ -9,6 +9,7 @@ We will go over on IDEs, creating environments, having multiple versions, of pyt
     - [Multiple Python Versions](#multiple-python-versions)
       - [Why not the system python?](#why-not-the-system-python)
       - [Why to have multiple versions?](#why-to-have-multiple-versions)
+    - [Python Code Analysis](#python-code-analysis)
     - [IDEs](#ides)
       - [IDLE](#idle)
       - [JupyterLab](#jupyterlab)
@@ -81,7 +82,47 @@ Some operating systems have python already. In Linux or OSX, typing `python` int
 - You may develop a package, where you want to target multiple versions of python.
 - You may want to test a feature that is available on the latest version of python.
 - Many other python distros ([Anaconda](https://www.anaconda.com/products/individual), and [others](https://www.python.org/download/alternatives/)) also adopts convention of installing different version of python.
-- 
+
+### Python Code Analysis
+
+There are tools that helps you while writing your code, such as linters, code analysis, code formatters, variable type checkers, etc. These tools are helpful such that 
+
+- it increases your understanding of the code 
+- helps other people to understand your code
+- makes your code less error prone
+- easy to read, maintain 
+- and many, many other advantages
+
+**Analysis**
+
+- [prospector](https://github.com/PyCQA/prospector) - Prospector is a tool to analyse Python code and output information about errors, potential problems, convention violations and complexity.
+- [Jedi](https://jedi.readthedocs.io/en/latest/) - Jedi is a static analysis tool for Python that is typically used in IDEs/editors plugins. Jedi has a focus on autocompletion and goto functionality. 
+
+**Linters**
+
+- flake8 - A wrapper around pycodestyle, pyflakes and McCabe.
+- pylama - A code audit tool for Python and JavaScript.
+- pylint - A fully customizable source code analyzer.
+- [wemake-python-styleguide](https://github.com/wemake-services/wemake-python-styleguide) - Welcome to the strictest and most opinionated python linter ever.
+  
+**Formatters**
+
+- black - The uncompromising Python code formatter.
+- isort - A Python utility / library to sort imports.
+- yapf - Yet another Python code formatter from Google.
+
+**Type Checkers**
+
+- mypy - Check variable types during compile time.
+- pyre-check - Performant type checking.
+- typeshed - Collection of library stubs for Python, with static types.\
+
+More available at following websites.
+
+- [Analysis Tools for Developers](https://github.com/analysis-tools-dev/static-analysis)
+- [Code analysis on Awesome Python](https://awesome-python.com/#code-analysis)
+- [Python Code Quality Authority](https://github.com/PyCQA)
+
 ### IDEs
 
 Various text editors you can code. Some of them features great tools for coding!
