@@ -107,9 +107,12 @@ Advanced integrated development environment tool that you can benefit a lot.
 - [Getting Started with Python in VS Code](https://code.visualstudio.com/docs/python/python-tutorial)
 - Great for development, enterprise grade tools!
 - Many useful extensions available, such as 
+  - [Github Pull Requests and Issues](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)
   - [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance)
   - [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
   - [Markdown PDF](https://marketplace.visualstudio.com/items?itemName=yzane.markdown-pdf), etc.
+  - [YAML Language Support, Formatting, etc.](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)
+  - [Kite Code AutoComplete](https://marketplace.visualstudio.com/items?itemName=kiteco.kite)
   - [Live Code](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare) to interact with each other.
 
 #### Interactive Shells
