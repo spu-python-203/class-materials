@@ -147,8 +147,8 @@ The value of some objects can change or cannot change.
 - None
 - NotImplemented
 - Ellipsis
-- numbers.Number
-- numbers.Integral
+- [numbers.Number](./weeks/week-03/README.md#numbersnumber)
+- [numbers.Integral](./weeks/week-03/README.md#numbersintegral)
 - Integers (int)
 - Booleans (bool)
 - numbers.Real (float)
@@ -203,7 +203,7 @@ These represent elements from the mathematical set of integers (positive and neg
 
 There are two types of integers:
 
-Integers (int)
+**Integers (int)**
 
 These represent numbers in an unlimited range, subject to available (virtual) memory only. For the purpose of shift and mask operations, a binary representation is assumed, and negative numbers are represented in a variant of 2’s complement which gives the illusion of an infinite string of sign bits extending to the left.
 
@@ -212,7 +212,16 @@ a = 23
 b = 0
 ```
 
-Booleans (bool)
+Methods:
+
+``` py
+int.bit_length()
+int.bit_count()
+int.to_bytes(length, byteorder, *, signed=False)
+int.from_bytes(bytes, byteorder, *, signed=False)
+```
+
+**Booleans (bool)**
 
 These represent the truth values False and True. The two objects representing the values False and True are the only Boolean objects. The Boolean type is a subtype of the integer type, and Boolean values behave like the values 0 and 1.
 
@@ -220,12 +229,21 @@ These represent the truth values False and True. The two objects representing th
 my_boolean = False
 ```
 
-numbers.Real (float)
+**numbers.Real (float)**
 
 These represent machine-level double precision floating point numbers. You are at the mercy of the underlying machine architecture (and C or Java implementation) for the accepted range and handling of overflow.
 
 ``` py
 a = 2.23
+```
+
+Methods:
+
+``` py
+float.as_integer_ratio()
+float.is_integer()
+float.hex()
+float.fromhex(s)
 ```
 
 #### Sequences
@@ -261,6 +279,58 @@ A string is a sequence of values that represent Unicode code points. All the cod
 ' t'
 ```
 
+Methods:
+
+``` py
+str.capitalize()
+str.casefold()
+str.center(width[, fillchar])
+str.count(sub[, start[, end]])
+str.encode(encoding="utf-8", errors="strict")
+str.endswith(suffix[, start[, end]])
+str.expandtabs(tabsize=8)
+str.find(sub[, start[, end]])
+str.format(*args, **kwargs)
+str.format_map(mapping)
+str.index(sub[, start[, end]])
+str.isalnum()
+str.isalpha()
+str.isascii()
+str.isdecimal()
+str.isdigit()
+str.isidentifier()
+str.islower()
+str.isnumeric()
+str.isprintable()
+str.isspace()
+str.istitle()
+str.isupper()
+str.join(iterable)
+str.ljust(width[, fillchar])
+str.lower()
+str.lstrip([chars])
+str.maketrans(x[, y[, z]])
+str.partition(sep)
+str.removeprefix(prefix, /)
+str.removesuffix(suffix, /)
+str.replace(old, new[, count])
+str.rfind(sub[, start[, end]])
+str.rindex(sub[, start[, end]])
+str.rjust(width[, fillchar])
+str.rpartition(sep)
+str.rsplit(sep=None, maxsplit=-1)
+str.rstrip([chars])
+str.split(sep=None, maxsplit=-1)
+str.splitlines([keepends])
+str.startswith(prefix[, start[, end]])
+str.strip([chars])
+str.swapcase()
+str.title()
+str.translate(table)
+str.upper()
+str.zfill(width)
+```
+
 **Tuples**
 The items of a tuple are arbitrary Python objects. 
 
@@ -278,6 +348,11 @@ The items of a tuple are arbitrary Python objects.
 (2,)
 >>> b = ()
 ()
+```
+
+Methods:
+
+``` py
 ```
 
 **Bytes**
@@ -301,6 +376,52 @@ print(arr2)
 # b'beginnersbook'
 # b'\xff\xfeb\x00e\x00g\x00i\x00n\x00n\x00e\x00r\x00s\x00b\x00o\x00o\x00k\x00'
 ```
+
+Methods:
+
+``` py
+bytes.count(sub[, start[, end]])
+bytes.removeprefix(prefix, /)
+bytes.removesuffix(suffix, /)
+bytes.decode(encoding="utf-8", errors="strict")
+bytes.endswith(suffix[, start[, end]])
+bytes.find(sub[, start[, end]])
+bytes.index(sub[, start[, end]])
+bytes.join(iterable)
+bytes.maketrans(from, to)
+bytes.partition(sep)
+bytes.replace(old, new[, count])
+bytes.rfind(sub[, start[, end]])
+bytes.rindex(sub[, start[, end]])
+bytes.rpartition(sep)
+bytes.startswith(prefix[, start[, end]])
+bytes.translate(table, /, delete=b'')
+bytes.center(width[, fillbyte])
+bytes.ljust(width[, fillbyte])
+bytes.lstrip([chars])
+bytes.rjust(width[, fillbyte])
+bytes.rsplit(sep=None, maxsplit=-1)
+bytes.rstrip([chars])
+bytes.split(sep=None, maxsplit=-1)
+bytes.strip([chars])
+bytes.capitalize()
+bytes.expandtabs(tabsize=8)
+bytes.isalnum()
+bytes.isalpha()
+bytes.isascii()
+bytes.isdigit()
+bytes.islower()
+bytes.isspace()
+bytes.istitle()
+bytes.isupper()
+bytes.lower()
+bytes.splitlines(keepends=False)
+bytes.swapcase()
+bytes.title()
+bytes.upper()
+bytes.zfill(width)
+```
+
 ##### Mutable sequences
 
 Mutable sequences can be changed after they are created. The subscription and slicing notations can be used as the target of assignment and `del` (delete) statements.
@@ -342,6 +463,24 @@ A nested list example
 'b'
 ```
 
+Methods:
+
+``` py
+s[i] = x
+s[i:j] = t
+s[i:j:k] = t
+del s[i:j]
+del s[i:j:k]
+list.append()
+list.clear()
+list.copy()
+list.extend()
+list.insert()
+list.pop()
+list.remove()
+list.reverse()
+```
+
 **Byte Arrays**
 A bytearray object is a mutable array. They are created by the built-in `bytearray()` constructor. These almost provide the same interface and functionality as immutable bytes objects.
 
@@ -369,6 +508,29 @@ myset = {"hi", 2, "bye", "Hello World"}
 # checking whether 2 is in myset
 print(2 in myset)
 ```
+
+Methods:
+
+``` py
+set.isdisjoint(other)
+set.issubset(other)
+set.issuperset(other)
+set.union(*others)
+set.intersection(*others)
+set.difference(*others)
+set.symmetric_difference(other)
+set.copy()
+set.update(*others)
+set.intersection_update(*others)
+set.difference_update(*others)
+set.symmetric_difference_update(other)
+set.add(elem)
+set.remove(elem)
+set.discard(elem)
+set.pop()
+set.clear()
+```
+
 **Frozen sets**
 These represent **an immutable set**. They are created by the built-in `frozenset()` constructor. As a frozenset is immutable and hashable, it can be used again as an element of another set, or as a dictionary key.
 
@@ -410,6 +572,22 @@ print("Student Age is:", mydict['StuAge'])
 print("Student City is:", mydict['StuCity'])
 
 del mydict['StuCity']
+```
+
+Methods:
+
+``` py
+dict.clear()
+dict.copy()
+dict.fromkeys(iterable[, value])
+dict.get(key[, default])
+dict.items()
+dict.keys()
+dict.pop(key[, default])
+dict.popitem()
+dict.setdefault(key[, default])
+dict.update([other])
+dict.values()
 ```
 
 <sub>Almost the same as [The standard type hierarchy](https://docs.python.org/3/reference/datamodel.html#the-standard-type-hierarchy), with an addition of lists and code samples.</sub>
