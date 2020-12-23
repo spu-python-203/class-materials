@@ -1,5 +1,33 @@
 # Week 4
 
+- [Week 4](#week-4)
+  - [Wrap up](#wrap-up)
+  - [Standard Type Hierarchy (Part 2)](#standard-type-hierarchy-part-2)
+    - [Callable Types](#callable-types)
+      - [User Defined Functions](#user-defined-functions)
+        - [Scopes and Namespaces Example](#scopes-and-namespaces-example)
+      - [Generators](#generators)
+        - [Generator Expressions](#generator-expressions)
+        - [Iterators](#iterators)
+      - [Coroutine Functions](#coroutine-functions)
+      - [Asynchronous generator functions](#asynchronous-generator-functions)
+      - [Builtin Functions](#builtin-functions)
+      - [Builtin Methods](#builtin-methods)
+      - [Classes](#classes)
+        - [Class Definition Syntax](#class-definition-syntax)
+        - [Class Objects](#class-objects)
+        - [Instance Objects](#instance-objects)
+        - [Method Objects](#method-objects)
+        - [Class and Instance Variables](#class-and-instance-variables)
+        - [Random Remarks](#random-remarks)
+        - [Odds and Ends](#odds-and-ends)
+    - [Modules](#modules)
+    - [I/O objects (also known as file objects)](#io-objects-also-known-as-file-objects)
+    - [*Args and **Kwargs](#args-and-kwargs)
+  - [Special Method Names](#special-method-names)
+  - [References](#references)
+
+
 ## Wrap up
 
 - Remaining section from Previous Week
@@ -12,13 +40,21 @@
 
 #### User Defined Functions
 
-``` py
-def some_function():
-    return
+A user-defined function object is created by a function definition (`def`). 
 
-def some_function(a, b, c):
-    return
+It should be called with an argument list containing the same number of items as the function’s formal parameter list.
+
+``` py
+    def some_function():
+        return
+
+    def some_function(a, b, c):
+        return
+
+    >>> some_function()
+    >>> some_function(1, 2, 3)
 ```
+
 ##### Scopes and Namespaces Example
 
 This is an example demonstrating how to reference the different scopes and
@@ -60,8 +96,10 @@ You can also see that there was no previous binding for *spam* before the
 
 #### Generators
 
+A function or method which uses the yield statement (see section The yield statement) is called a generator function. Such a function, when called, always returns an iterator object which can be used to execute the body of the function.
+
 Generators are a simple and powerful tool for creating iterators. An example shows that generators can be trivially
-easy to create
+easy to create.
 
 ``` py
    def reverse(data):
@@ -178,22 +216,45 @@ defines :meth:`__next__`, then :meth:`__iter__` can just return ``self``
 
 #### Coroutine Functions
 
+A function or method which is defined using async def is called a coroutine function. Such a function, when called, returns a coroutine object. It may contain await expressions, as well as async with and async for statements.
+
 ``` py
+import asyncio
+
+async def main():
+    print('hello')
+    await asyncio.sleep(1)
+    print('world')
+
+asyncio.run(main())
 ```
 
 #### Asynchronous generator functions
 
+A function or method which is defined using async def and which uses the yield statement is called a asynchronous generator function. Such a function, when called, returns an asynchronous iterator object which can be used in an async for statement to execute the body of the function.
+
 ``` py
+    async def square_odds(start, stop):
+        for odd in odds(start, stop):
+            await asyncio.sleep(2)
+            yield odd ** 2
 ```
 
 #### Builtin Functions
 
+The Python interpreter has a number of functions and types built into it that are always available. They are listed here in alphabetical order.
+https://docs.python.org/3/library/functions.html
+
 ``` py
+abs(), delattr(), hash(), memoryview(), set(), all(), dict(), help(), min(), setattr(), any(), dir(), hex(), next(), slice(), ascii(), divmod(), id(), object(), sorted(), bin(), enumerate(), input(), oct(), staticmethod(), bool(), eval(), int(), open(), str(), breakpoint(), exec(), isinstance(), ord(), sum(), bytearray(), filter(), issubclass(), pow(), super(), bytes(), float(), iter(), print(), tuple(), callable(), format(), len(), property(), type(), chr(), frozenset(), list(), range(), vars(), classmethod(), getattr(), locals(), repr(), zip(), compile(), globals(), map(), reversed(), __import__(), complex(), hasattr(), max(), round()
 ```
 
 #### Builtin Methods
 
+This is really a different disguise of a built-in function, this time containing an object passed to the C function as an implicit extra argument. An example of a built-in method is alist.append(), assuming alist is a list object. In this case, the special read-only attribute __self__ is set to the object denoted by alist.
+
 ``` py
+list.append('a')
 ```
 
 #### Classes
