@@ -28,7 +28,6 @@
       - [The import statement](#the-import-statement)
       - [The global statement](#the-global-statement)
       - [The nonlocal statement](#the-nonlocal-statement)
-  - [Expressions](#expressions)
 
 ## Operators
 
@@ -206,27 +205,121 @@ assert 5 ^ 3 == 6  # 0b0110
 
 ### Assignment Operators (=, +=, -=, /=, //= etc.)
 
+Some assignment operators.
+
 ``` py
+n = 1
+c = 10
+z = 100
+for i in range(5):
+    n += 1
+    c -= 2
+    z /= 3
+```
+
+An `:=` (assignment expression) (sometimes also called a “named expression” or “walrus”) assigns an expression to an identifier, while also returning the value of the expression.
+
+``` py
+# set value within if condition
+for letter in ('A', 'B', 'C'):
+    if value := 'A':
+        print(value + letter)
 ```
 
 ### Comparison Operator (==, !=, >, <, >=, <=)
 
+Some notes on comparison operators.
+
+- In Python have the same priority, which is lower than that of any arithmetic, shifting or bitwise operation. 
+- Comparisons yield boolean values: True or False.
+- Note that `a op1 b op2 c` doesn’t imply any kind of comparison between `a` and `c`, so `x < y > z` is good.
+- 
 ``` py
+x, y, z = 2, 5, 1
+
+# can be chained
+>>> x < y <= z 
+False
+
+# above is equivalent to 
+>>> x < y and y <= z
+False
+
+# legal!
+>>> x < y > z
+True
 ```
+
+The operators <, >, ==, >=, <=, and != compare the values of two objects. The objects do not need to have the same type.
 
 ### Logical Operators (and, or, not)
 
+Combine conditional statements using logical operators.
+
 ``` py
+# Let's work with these number to illustrate logic operators.
+a = 5
+b = 10
+
+# Returns True if both statements are true.
+assert a > 0 and b < 20
+
+# Returns True if one of the statements are true.
+assert a > 0 or b < 20
+
+# Reverse the result of of condition
+assert not a == b
+assert a == b
 ```
 
 ### Identity Operators (is, is not)
 
+The operators is and is not test for an object’s identity: `x is y` is true if and only if x and y are the same object. 
+
+An Object’s identity is determined using the `id()` function. `x is not y` yields the inverse truth value.
+
 ``` py
+v = False
+>>> v is False
+True
+
+class A:
+    pass
+
+# set another pointer to a
+a = A()
+b = a
+>>> a is b
+True
+
+# a new instance for each variable
+a = A()
+b = A()
+>>> a is b
+False
 ```
 
 ### Membership Operators (in, not in)
 
+The operators in and not in test for membership. 
+
+- `x in s` evaluates to `True` if x is a member of s, and False otherwise. 
+- `x not in s` returns the negation of x in s. 
+- All built-in sequences and set types support this as well as dictionary, for which in tests whether the dictionary has a given key. 
+- For container types such as list, tuple, set, frozenset, dict, or collections.deque, the expression `x in y` is equivalent to `any(x is e or x == e for e in y)`.
+
 ``` py
+# dictionaries
+stocks = dict(tesla=800.00, apple=135.50)
+assert 'tesla' in stocks
+assert 'fb' not in stocks
+
+# container types
+fruit_list = ["apple", "banana"]
+assert "banana" in fruit_list
+assert "peach" not in fruit_list
+assert any("banana" is e or "banana" == e for e in fruit_list)
+
 ```
 
 ## Execution Model
@@ -253,4 +346,4 @@ assert 5 ^ 3 == 6  # 0b0110
 #### The global statement
 #### The nonlocal statement
 
-## Expressions 
+<!-- ## Expressions  -->
