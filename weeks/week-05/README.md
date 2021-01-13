@@ -160,10 +160,49 @@ ZeroDivisionError: 0.0 cannot be raised to a negative power
 
 ### Bitwise Operators (&, |, ^, >>, <<, ~)
 
+Bitwise operations only make sense for integers. The result of bitwise operations is calculated as though carried out in two’s complement with an infinite number of sign bits.
+
+Each of the three bitwise operations has a different priority level. This table lists the bitwise operations sorted in ascending priority:
+
+| Operation | Result                          |
+| --------- | ------------------------------- |
+| x `|` y   | bitwise or of x and y           |
+| x ^ y     | bitwise exclusive or of x and y |
+| x & y     | bitwise and of x and y          |
+| x << n    | x shifted left by n bits        |
+| x >> n    | x shifted right by n bits       |
+| ~x        | the bits of x inverted          |
 
 ``` py
+# AND
+# Sets each bit to 1 if both bits are 1.
+#
+# Example:
+# 5 = 0b0101
+# 3 = 0b0011
+assert 5 & 3 == 1  # 0b0001
+
+# OR
+# Sets each bit to 1 if one of two bits is 1.
+#
+# Example:
+# 5 = 0b0101
+# 3 = 0b0011
+assert 5 | 3 == 7  # 0b0111
+
+# XOR
+# Sets each bit to 1 if only one of two bits is 1.
+#
+# Example:
+# 5 = 0b0101
+# 3 = 0b0011
+number = 5  # 0b0101
+number ^= 3  # 0b0011
+assert 5 ^ 3 == 6  # 0b0110
 ```
 
+<sub> Some examples are from [learn-python](https://github.com/trekhleb/learn-python/blob/master/src/operators/test_bitwise.py) repository.</sub>  
+<sub> More on table notes is in [bitwise-operations-on-integer-types](https://docs.python.org/3/library/stdtypes.html#bitwise-operations-on-integer-types) at python documentation.</sub>
 
 ### Assignment Operators (=, +=, -=, /=, //= etc.)
 
