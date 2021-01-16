@@ -542,15 +542,195 @@ How with works can be more read on [the with statement](https://docs.python.org/
 ### Simple Statements
 
 #### The assert statement
+
+Assert statements are a convenient way to insert debugging assertions into a program:
+
+``` py
+assert 1 == True, 'This message will not be displayed'
+assert 0 == True, 'This message will be displayed with an AssertionError'
+```
+
+Assertion expressions are actually equivalent to
+
+``` py
+if __debug__:
+    if not expression: raise AssertionError
+```
+
+The built-in variable `__debug__` is True under normal circumstances, False when optimization is requested (command line option -O). 
+
 #### The pass statement
+
+`pass` is a null operation — when it is executed, nothing happens. It is useful as a placeholder when a statement is required syntactically, but no code needs to be executed
+
+``` py
+def f(arg): pass    # a function that does nothing (yet)
+
+class C: pass       # a class with no methods (yet)
+```
+
 #### The del statement
+
+Deletion is recursively defined very similar to the way assignment is defined. 
+
+``` py
+a = list(range(3))
+
+del a[1] # deletes only the second positioned item from the list, 1.
+
+del a # recursively deletes each target, from left to right.
+```
+
+If the variable `a` is called again, it is unbound, a NameError exception will be raised.
+
 #### The return statement
+
+The `return` may only occur syntactically nested in a function definition, not within a nested class definition.
+
+``` py
+def some_function():
+    """
+    If an expression list is present, it is evaluated, else None is substituted.
+    """
+    return 
+
+
+def divide_by_hunderd(x):
+    """
+    When return passes control out of a try statement with a finally clause, 
+    that finally clause is executed before really leaving the function.
+    """
+    try:
+        result = x / 100
+        return result
+    except ZeroDivisionError:
+        print("division by zero!")
+    else:
+        print("result is", result)
+    finally:
+        print("executing finally clause")
+
+
+def some_generator_function():
+    """
+    In a generator function, the return statement indicates 
+    that the generator is done and will cause StopIteration to be raised. 
+    """
+    n = 1
+    while True:
+        n += 1
+        if n == 4:
+            return 'Yey' 
+        yield n
+```
+
 #### The yield statement
+
+Yield expressions and statements are only used when defining a generator function, and are only used in the body of the generator function. Using yield in a function definition is sufficient to cause that definition to create a generator function instead of a normal function.
+
+``` py
+def generator_function():
+    yield 123
+```
+
 #### The raise statement
+
+If no expressions are present, raise re-raises the last exception that was active in the current scope.
+
+``` py
+value = int(input('enter value: '))
+try:
+    value / 0
+except ZeroDivisionError as zex:
+    if value == 2:
+        raise 
+    elif value == 3:
+        raise Exception(
+          'Exception raised with a exception class')
+    elif value == 4:
+        raise ValueError(
+          'Exception raised with a another exception class (ValueError), '
+          'but ZeroDivisionError will also be raised') from zex
+    print('exception omitted')
+```
+
 #### The break statement
+
+The `break` may only occur syntactically nested in a for or while loop, but not nested in a function or class definition within that loop.
+
+It terminates the nearest enclosing loop, skipping the optional else clause if the loop has one.
+
+If a for loop is terminated by break, the loop control target keeps its current value.
+
+When break passes control out of a try statement with a finally clause, that finally clause is executed before really leaving the loop.
+
+``` py
+n = int(input('enter a value: '))
+while True:
+   if n == 2:
+       break
+```
+
 #### The continue statement
+
+The `continue` may only occur syntactically nested in a for or while loop, but not nested in a function or class definition within that loop. It continues with the next cycle of the nearest enclosing loop.
+
+When continue passes control out of a try statement with a finally clause, that finally clause is executed before really starting the next loop cycle.
+
+``` py
+for number in range(5):
+    if number == 2:
+        # number 2 will not be printed
+        continue
+    print(number)
+```
+
 #### The import statement
+
+Used for importing python modules and packages.
+
+The basic import statement (no from clause) is executed in two steps:
+
+- find a module, loading and initializing it if necessary
+- define a name or names in the local namespace for the scope where the import statement occurs.
+
+``` py
+import foo                 # foo imported and bound locally
+import foo.bar.baz         # foo.bar.baz imported, foo bound locally
+import foo.bar.baz as fbb  # foo.bar.baz imported and bound as fbb
+from foo.bar import baz    # foo.bar.baz imported and bound as baz
+from foo import attr       # foo imported and foo.attr bound as attr
+```
+
 #### The global statement
+
+The global statement is a declaration which holds for the entire current code block. It means that the listed identifiers are to be interpreted as globals. It would be impossible to assign to a global variable without global, although free variables may refer to globals without being declared global.
+
+``` py
+global a
+a = 2
+def function1():
+    print(a)
+```
+
 #### The nonlocal statement
+
+The nonlocal statement causes the listed identifiers to refer to previously bound variables in the nearest enclosing scope excluding globals. This is important because the default behavior for binding is to search the local namespace first. The statement allows encapsulated code to rebind variables outside of the local scope besides the global (module) scope.
+
+Names listed in a nonlocal statement, unlike those listed in a global statement, must refer to pre-existing bindings in an enclosing scope (the scope in which a new binding should be created cannot be determined unambiguously).
+
+``` py
+def function1():
+    a = 1
+    def function2():
+        nonlocal a # without this, will throw UnboundNameError
+        a += 2
+        print(a)
+    print(a)
+    function2()
+    a += 2
+    print(a)
+function1()
+```
 
 <!-- ## Expressions  -->
