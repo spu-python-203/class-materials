@@ -327,10 +327,217 @@ assert any("banana" is e or "banana" == e for e in fruit_list)
 ### Control Flow
 
 #### The if statement
+
+The statement `if` is to check conditional statements.
+
+``` py
+if condition_to_check:
+    print('Condition returns', True)
+else:
+    print('Condition returns', False)
+```
+
+There can be zero or more `elif` parts, and the `else` part is optional. The keyword ‘elif’ is short for ‘else if’, and is useful to avoid excessive indentation.
+
+``` py
+# get an input and do some operation
+x = int(input("Please enter an integer: "))
+
+if x < 0:
+    x = 0
+    print('Negative changed to zero')
+elif x == 0:
+    print('Zero')
+elif x == 1:
+    print('Single')
+else:
+    print('More')
+```
+
 #### The while statement
+
+The while statement is used for repeated execution as long as an expression is true:
+
+``` py
+while some_expression_to_check:
+    # do some operation
+    pass
+```
+
+This repeatedly tests the expression and, if it is true, executes the first suite; if the expression is false (which may be the first time it is tested) the suite of the else clause, if present, is executed and the loop terminates.
+
+
 #### The for statement
+
+The for statement is used to iterate over the elements of a sequence (such as a string, tuple or list) or other iterable object, in the order that they appear in the sequence:
+
+``` py
+# Measure some strings:
+words = ['cat', 'window', 'defenestrate']
+for w in words:
+    print(w, len(w))
+```
+
+Iterating over mutable objects while modifying can have unexpected results.
+
+``` py
+users = {
+  'Mike': 1,
+  'John': 2,
+  'Smith': 3,
+  'Susanne': 4,
+}
+
+# will throw RuntimeError
+for key, value in users.items():
+    if value == 2:
+        del users[key]
+        print(key, users)
+
+# get a copy of the dictionary while iterating
+for key, value in users.copy().items():
+    if value == 2:
+        del users[key]
+        print(key, users)
+
+# create a new dictionary 
+new_users = {}
+for key, value in users.items():
+    if value == 3:
+        continue
+    new_users[key] = value
+    print(key, users)
+```
+
 #### The try statement
+
+The try statement works as follows.
+
+First, the try clause (the statement(s) between the try and except keywords) is executed.
+
+If no exception occurs, the except clause is skipped and execution of the try statement is finished.
+
+If an exception occurs during execution of the try clause, the rest of the clause is skipped. Then if its type matches the exception named after the except keyword, the except clause is executed, and then execution continues after the try statement.
+
+If an exception occurs which does not match the exception named in the except clause, it is passed on to outer try statements
+
+``` py
+while True:
+    try:
+        x = int(input("Please enter a number: "))
+        break
+    except ValueError:
+        print("Oops!  That was no valid number.  Try again...")
+```
+
+A try statement may have more than one except clause, to specify handlers for different exceptions. At most one handler will be executed. Handlers only handle exceptions that occur in the corresponding try clause, not in other handlers of the same try statement. An except clause may name multiple exceptions as a parenthesized tuple, for example:
+
+``` py
+try:
+    1 is None
+except (RuntimeError, TypeError, NameError):
+    pass
+except SyntaxError:
+    print('Yey')
+except:
+    print('An exception that is not defined in above clauses occured')
+```
+
+The `try` statement can also have an optional `else` statement.
+
+``` py
+try:
+    f = open('some_file.txt', 'r')
+except OSError:
+    print('cannot open', 'some_file.txt')
+else:
+    print('some_file.txt', 'has', len(f.readlines()), 'lines')
+    f.close()
+```
+
+The use of the else clause is better than adding additional code to the try clause because it avoids accidentally catching an exception that wasn’t raised by the code being protected by the try … except statement.
+
+When an exception occurs, it may have an associated value, also known as the exception’s argument. The presence and type of the argument depend on the exception type.
+
+``` py
+try:
+    raise Exception('spam', 'eggs')
+except Exception as inst:
+    print(type(inst))    # the exception instance
+    print(inst.args)     # arguments stored in .args
+    print(inst)          # __str__ allows args to be printed directly,
+                         # but may be overridden in exception subclasses
+    x, y = inst.args     # unpack args
+    print('x =', x)
+    print('y =', y)
+
+```
+
+Exception handlers don’t just handle exceptions if they occur immediately in the try clause, but also if they occur inside functions that are called (even indirectly) in the try clause. For example:
+
+``` py
+def this_fails():
+    x = 1/0
+
+try:
+    this_fails()
+except ZeroDivisionError as err:
+    print('Handling run-time error:', err)
+
+```
+
+If a `finally` clause is present, the finally clause will execute as the last task before the try statement completes. 
+
+``` py
+def divide(x, y):
+    try:
+        result = x / y
+    except ZeroDivisionError:
+        print("division by zero!")
+    else:
+        print("result is", result)
+    finally:
+        print("executing finally clause")
+
+# try these
+divide(2, 1)
+divide(2, 0)
+divide("2", "1")
+```
+
+<sub> From [Errors and Exceptions](https://docs.python.org/3/tutorial/errors.html) of python documentation. </sub>
+
+
 #### The with statement
+
+The context manager handles 
+- the entry into, and 
+- the exit from
+- the desired runtime context 
+
+for the execution of the block of code.
+
+The with statement is used to wrap the execution of a block with methods defined by a context manager
+
+``` py
+with EXPRESSION as TARGET:
+    SUITE
+```
+
+With more than one item, the context managers are processed as if multiple with statements were nested:
+
+``` py
+# same as below
+with A() as a, B() as b:
+    SUITE
+
+# same as above
+with A() as a:
+    with B() as b:
+        SUITE
+```
+
+How with works can be more read on [the with statement](https://docs.python.org/3/reference/compound_stmts.html#the-with-statement) of python docs.
 
 ### Simple Statements
 
